@@ -4,6 +4,17 @@
 
 ## 최신: Hero visual pass
 
+### 추가: 단계별 Reveal / 공간 파동 / 유약·먹 표면
+
+- `polish_zone01_timing.py`: 윤곽 1~5초, 표면 5~12초, 문양 10~15초, Halo 15~19초, 주변 입자 19초 이후. 22초 첫 바닥 파동, 46초 약한 두 번째 파동. 원점 (-600,0), 속도 440cm/s를 나무/입자/한옥 반응에 공유한다.
+- 기존 MPC에 Surface/Pattern/Halo Reveal 3개 scalar 추가. 기존 Sequencer 밝기 곡선과 Niagara lifetime section 시작 시각만 보정하며, 카메라 키와 Actor transform 일치 및 2회 반복 binding/track 동일 확인. 메시는 변경하지 않는다.
+- 추가 표면 요청으로 Moon 및 기존 Key/Fill 조명만 channel 1에 연결했다. Key/Fill은 1800/1100의 최종 강도로 5~12초에 등장하며, 두 조명의 안개 기여·주변 투영 그림자를 끄고 간접광은 0.05로 제한했다. 맵 변경은 이 조명 설정이며, 모델/카메라/나무 인스턴스 배치는 그대로다.
+- `polish_jar_surface.py`: 자체 생성 atlas로 유약의 색·roughness·미세 normal, 먹 매화 문양을 분리한다. 전체 Emissive 대신 월드 좌표에서 계산한 윤곽 발광만 사용. 중앙 하이라이트를 줄여 표면 디테일을 보존한다. 제작 프롬프트와 재현 절차는 `Docs/ZONE01_TIMING.md`.
+- 최신 glaze-3은 잘못된 음영 패치를 방지하기 위해 항아리 몸체의 월드 공간 근사 normal에 미세 유약 굴곡을 더한다. 조명 세기를 실제 렌더로 보정했으며, `HeroReview/Zone01_20260907_181938/Zone01.1650.png`에서 표면 질감·문양·밝기 보존을 확인했다. 참조 이미지의 모든 공간 디테일을 완전히 재현했다는 의미는 아니다.
+- 백업: `Saved/Backups/TimingPolish_20260907_174959`. `timing_polish.json`, `jar_surface.json`에 저장 결과. native 65초 PIE에서 카메라 이동·Niagara4·최종 프레임 도달 PASS; 실제 MPC 단계별 값도 기록(`runtime_zone01.json`). 이후 등불 재질의 초반 밝기만 추가 제한했다.
+- 이전 전체 hero 생성기를 다시 실행하면 타이밍 보정 이전 조명 키로 돌아갈 수 있으므로 이 추가 보정에는 위 전용 스크립트를 사용한다. 최신 저장된 맵을 열어 감상할 때 제작 스크립트를 실행할 필요는 없다.
+- 최종 검증 PASS: 65초 native PIE에서 60초 종료 후에도 마지막 MPC·조명 값을 유지하도록 Keep State 보정 확인. MPC/조명 샘플 값 189회 비교 PASS, 1,800프레임 렌더 PASS. `timing_verification.json`에 변경 범위 검증, `TimingReview/Zone01_Reveal_60s.webp`에 60초 미리보기, `TimingReview/Timing_ContactSheet.jpg`에 시간대별 실제 렌더를 저장했다. 기존 메시·Blueprint·Niagara·Config 파일 SHA256 동일. 1920×1080 최종 55초 표면 렌더는 위 `181938` 경로다.
+
 ### 추가: 나무의 빛/꽃잎 보정
 
 - `polish_tree_petals.py`가 기존 LuminousGarden의 두 ISM 컴포넌트를 재사용한다. 2,592개 구체를 402개 soft glow/petal 카드, 18개 가지 끝 군집으로 줄였다. compact/medium/airy 3종 군집, small/medium/large 크기 분포 222/141/39.

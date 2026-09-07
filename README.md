@@ -4,6 +4,8 @@ Unreal Engine 기반 한국형 이머시브 미디어아트 전시 프로젝트�
 
 거대한 달항아리, 한옥, 빛의 숲, 반사 바닥과 안개를 중심으로 구성합니다. 기존 Niagara·Material·Sequencer 연출과 함께 가지 끝의 soft glow·꽃잎 군집을 포함합니다. 외부 Marketplace 에셋에 의존하지 않습니다.
 
+달항아리의 유약·먹 매화 표면과 단계별 Reveal, 중앙 Ripple에 이어지는 공간 반응을 적용했습니다. [연출 타이밍과 표면 제작 기록](Docs/ZONE01_TIMING.md)에서 세부 내용을 확인할 수 있습니다.
+
 ## 실행
 
 1. Unreal Engine **5.7**을 설치합니다. 제작·검증 버전은 5.7.4입니다.

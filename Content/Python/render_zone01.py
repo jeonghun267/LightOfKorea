@@ -8,10 +8,11 @@ import unreal as u
 STATE={"started":time.time(),"errors":[]}
 STILL='-LOKHeroStill' in u.SystemLibrary.get_command_line()
 PETALS='-LOKPetalClip' in u.SystemLibrary.get_command_line()
+TIMING='-LOKTimingReview' in u.SystemLibrary.get_command_line()
 EXPECTED=240 if PETALS else 1 if STILL else 1800
-RESOLUTION=(960,540) if PETALS else (1920,1080)
+RESOLUTION=(960,540) if PETALS or TIMING else (1920,1080)
 ROOT=Path(u.Paths.convert_relative_path_to_full(u.Paths.project_saved_dir()))/"LOK"
-OUT=ROOT/("PetalReview" if PETALS else "HeroReview" if STILL else "Renders")/time.strftime("Zone01_%Y%m%d_%H%M%S")
+OUT=ROOT/("TimingReview" if TIMING else "PetalReview" if PETALS else "HeroReview" if STILL else "Renders")/time.strftime("Zone01_%Y%m%d_%H%M%S")
 
 def finished(executor,success):
     frames=list(OUT.glob("*.png"))
@@ -21,7 +22,7 @@ def finished(executor,success):
             "render_wall_seconds":round(time.time()-STATE["started"],2),
             "output":str(OUT),"errors":STATE["errors"],
             "note":"Offline MRQ render time is not real-time exhibition FPS."}
-    (ROOT/("render_petal_clip.json" if PETALS else "render_hero_still.json" if STILL else "render_zone01.json")).write_text(json.dumps(report,indent=2),encoding="utf-8")
+    (ROOT/("render_timing_review.json" if TIMING else "render_petal_clip.json" if PETALS else "render_hero_still.json" if STILL else "render_zone01.json")).write_text(json.dumps(report,indent=2),encoding="utf-8")
     u.log("[LOK][INFO] MRQ result: "+json.dumps(report))
     u.SystemLibrary.quit_editor()
 

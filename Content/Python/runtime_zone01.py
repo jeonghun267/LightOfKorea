@@ -61,6 +61,13 @@ def tick(delta):
             S["samples"].append({"elapsed":round(elapsed,2),"sequence_frame":player.get_current_time().time.frame_number.value,
                 "playing":player.is_playing(),"camera_position":[p.x,p.y,p.z],"niagara":niagara,
                 "viewport_size":list(pc.get_viewport_size()) if pc else None})
+            collection=u.load_asset('/Game/LOK/Materials/MPC/MPC_LOK_Global')
+            if collection and 'MoonPatternReveal' in [str(v.get_editor_property('parameter_name')) for v in collection.get_editor_property('scalar_parameters')]:
+                S['samples'][-1]['visual_controls']={name:u.MaterialLibrary.get_scalar_parameter_value(world,collection,name)
+                  for name in ('ExhibitTime','MoonSurfaceReveal','MoonPatternReveal','MoonHaloReveal','ForestGlow','GroundGlow','RippleStrength')}
+                u.log('[LOK][TIMING VALUES] '+json.dumps(S['samples'][-1]['visual_controls']))
+                S['samples'][-1]['jar_light_intensities']={a.get_actor_label():a.get_component_by_class(u.RectLightComponent).get_editor_property('intensity')
+                  for a in u.GameplayStatics.get_all_actors_of_class(world,u.RectLight) if a.get_actor_label() in ('Hero_JarKey','Hero_JarFill')}
             S["next_sample"]=elapsed+5 if elapsed<55 else elapsed+1
             u.log("[LOK][INFO] Runtime sample %.1fs frame %s"%(elapsed,S["samples"][-1]["sequence_frame"]))
         if elapsed>=65:
