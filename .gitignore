@@ -1,0 +1,32 @@
+# Unreal generated files and local editor state
+/Binaries/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
+/.vs/
+/.idea/
+/.vscode/
+/.codex/
+/.agents/
+*.sln
+*.suo
+*.VC.db
+*.VC.opendb
+*.opensdf
+*.sdf
+
+# Python runtime caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Credentials and local overrides
+.env
+.env.*
+!.env.example
+
+# OS temporary files
+Thumbs.db
+.DS_Store
+*.tmp
