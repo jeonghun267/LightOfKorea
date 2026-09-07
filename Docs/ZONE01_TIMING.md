@@ -38,6 +38,7 @@ python Tools/run_hero_task.py Content/Python/render_zone01.py -LOKTimingReview
 기존 두 달항아리 조명은 channel 1로 분리하고 Moon만 channel 0/1을 받는다. Key/Fill은 5~12초에 Sequencer Intensity로 등장한다. 주변 전시가 밝아지지 않도록 해당 두 조명의 volumetric contribution은 0, indirect intensity는 0.05로 제한한다. 표면을 가리는 주변 모델의 큰 투영 그림자를 피하도록 이 두 조명의 그림자만 끄고 기존 전시장 조명·안개는 유지했다. Lighting Channels는 동적 불투명 표면의 직접 조명에 적용되므로 안개 및 간접광 제한을 별도로 설정했다. [Epic 공식 설명](https://dev.epicgames.com/documentation/unreal-engine/using-lighting-channels-in-unreal-engine)
 
 - 소스: `Content/LOK/Textures/Source/T_MoonJar_GlazeInk_Atlas.png`
+- 개별 PNG: [유약 질감](../SourceArt/Textures/T_MoonJar_Glaze.png), [먹 매화 문양](../SourceArt/Textures/T_MoonJar_InkPlum.png). 합본 원본을 픽셀 변경 없이 좌우로 분리한 887×887 이미지다.
 - Unreal 에셋: `/Game/LOK/Textures/T_MoonJar_GlazeInk_Atlas`
 - 재질: `/Game/LOK/Materials/Hero/M_Hero_Ceramic`
 
